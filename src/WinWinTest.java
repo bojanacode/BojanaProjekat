@@ -1,20 +1,9 @@
-import org.asynchttpclient.util.Assertions;
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.security.x509.URIName;
 
-import java.net.URL;
 import java.time.Duration;
-import java.util.Objects;
-
-import static org.checkerframework.checker.units.UnitsTools.mm;
-import static org.junit.Assert.assertEquals;
 
 
 public class WinWinTest {
@@ -23,19 +12,27 @@ public class WinWinTest {
     public String SelectVesMasina = "https://www.winwin.rs/bela-tehnika/ves-masine.html";
     public String SelectItemInCart = "https://www.winwin.rs/bela-tehnika/ves-masine/masine-za-pranje-vesa.html";
     public String SelectedItemForm = "https://www.winwin.rs/checkout/onepage/";
+    public String setupUrl;
+    public String takeScreenshot;
 
     public WinWinTest() {
 
     }
+
 // Ovaj test izvrsava verifikaciju odabira kategorije i promenu boje teksta u selektovanoj podkategoriji, tako sto
 // gasi pushup Notifikacije i otvara kategoriju Proizvodi na sajtu, zatim prelazi na Tv, Video i Audio komponentu
 // kada se prilikom odabira boja podkategorije na meniju menja
+
+
+
+
 
     @Test
     public void NotificationsAndHover() {
 
         ChromeDriver driver = new ChromeDriver();
         driver.get("https://www.winwin.rs/");
+        driver.manage().window().maximize();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         String currentURL = driver.getCurrentUrl();
@@ -48,19 +45,21 @@ public class WinWinTest {
             e.printStackTrace();
         }
         String URL = driver.getCurrentUrl();
-        if(URL.contains("winwin"))
-        {
+        if (URL.contains("winwin")) {
             System.out.println("Landed in correct URL" +
                     "" + URL);
 
-        }else
-        {
+        } else {
             System.out.println("Landed in wrong URL");
 
         }
         driver.quit();
 
     }
+
+
+
+
 
     @Test
     //Ovaj test izvrsava verifikaciju prisustva slike proizvoda iz odabrane kategorije, tako sto iz kategorije proizvoda bira
@@ -71,6 +70,7 @@ public class WinWinTest {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectBelaTehnika);
+        driver.manage().window().maximize();
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.findElement(By.xpath("//*[@id=\"narrow-by-list2\"]/dd/ol/li[1]/a/span[1]")).click();
@@ -101,6 +101,7 @@ public class WinWinTest {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectItemInCart);
+        driver.manage().window().maximize();
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         driver.findElement(By.cssSelector("#mm-0 > div > div.main-container.col2-left-layout > div > div.main > div.col-main > div.seg-reco-wrapper.seg-clear > div > div > div.owl-stage-outer > div > div:nth-child(9) > div > h3 > a")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
@@ -128,6 +129,7 @@ public class WinWinTest {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectItemInCart);
+        driver.manage().window().maximize();
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         driver.findElement(By.cssSelector("#mm-0 > div > div.main-container.col2-left-layout > div > div.main > div.col-main > div.seg-reco-wrapper.seg-clear > div > div > div.owl-stage-outer > div > div:nth-child(9) > div > h3 > a")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
@@ -144,7 +146,6 @@ public class WinWinTest {
             System.out.println("Landed in wrong URL");
 
         }
-
         driver.quit();
 
 
