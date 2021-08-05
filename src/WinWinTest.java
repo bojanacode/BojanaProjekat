@@ -2,11 +2,13 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
 
 public class WinWinTest {
+
     public String NotificationsAndHover = "https://www.winwin.rs";
     public String SelectBelaTehnika = "https://www.winwin.rs/bela-tehnika.html";
     public String SelectVesMasina = "https://www.winwin.rs/bela-tehnika/ves-masine.html";
@@ -14,6 +16,9 @@ public class WinWinTest {
     public String SelectedItemForm = "https://www.winwin.rs/checkout/onepage/";
     public String setupUrl;
     public String takeScreenshot;
+    private Object LogInForm;
+    public String LogInInvalid;
+
 
     public WinWinTest() {
 
@@ -25,8 +30,6 @@ public class WinWinTest {
 //             3. Select „TV, Audio, video“
 // Expected result:
 // Successful selection and navigation, letters in products dropbox changes color while selected
-
-
 
 
     @Test
@@ -60,7 +63,7 @@ public class WinWinTest {
     }
 
 
-// Test case : Verify correct products images are shown when selected category
+    // Test case : Verify correct products images are shown when selected category
 // Test steps: 1. Navigate to www.winwin.rs
 //             2. Select the drop down menu "Proizvodi"
 //             3. Select „Bela tehnika“
@@ -82,13 +85,11 @@ public class WinWinTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         driver.findElement(By.xpath("//*[@id=\"narrow-by-list2\"]/dd/ol/li[1]/a/span")).click();
         String URL = driver.getCurrentUrl();
-        if(URL.contains("masine-za-pranje-vesa"))
-        {
+        if (URL.contains("masine-za-pranje-vesa")) {
             System.out.println("Landed in correct URL" +
                     "" + URL);
 
-        }else
-        {
+        } else {
             System.out.println("Landed in wrong URL");
 
         }
@@ -96,9 +97,7 @@ public class WinWinTest {
     }
 
 
-
-
-//    Test case : Verify the chosen product is in the shopping cart
+    //    Test case : Verify the chosen product is in the shopping cart
 //    Test steps: 1. Navigate to www.winwin.rs
 //            2. Select the drop down menu "Proizvodi"
 //            3. Select „Bela tehnika“
@@ -120,13 +119,11 @@ public class WinWinTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.findElement(By.cssSelector("#product-addtocart-button")).click();
         String URL = driver.getCurrentUrl();
-        if(URL.contains("cart"))
-        {
+        if (URL.contains("cart")) {
             System.out.println("Landed in correct URL" +
                     "" + URL);
 
-        }else
-        {
+        } else {
             System.out.println("Landed in wrong URL");
 
         }
@@ -151,7 +148,7 @@ public class WinWinTest {
 
     @Test
 
-    public void SelectItemForm (){
+    public void SelectItemForm() {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectItemInCart);
@@ -162,23 +159,84 @@ public class WinWinTest {
         driver.findElement(By.cssSelector("#product-addtocart-button")).click();
         driver.findElement(By.xpath("//*[@id=\"mm-0\"]/div/div[2]/div/div/div[1]/div[2]/div[1]/ul/li/button")).click();
         String URL = driver.getCurrentUrl();
-        if(URL.contains("onepage"))
-        {
+
+        if (URL.contains("onepage")) {
             System.out.println("Landed in correct URL" +
                     "" + URL);
 
-        }else
-        {
+        } else {
             System.out.println("Landed in wrong URL");
 
         }
         driver.quit();
 
+    }
 
+    //   Test case : Customer log in form using valid credentials
+//   Test steps: 1. Navigate to www.winwin.rs/customer/account/login
+//               2. Filling in username field
+//               3. Filling in password field
+//               4. Clicks on submit button
+//               5. Navigates to user account page
+// Expected result:
+// User is logged in  and user account page is visible
+    @Test
 
+    public void LogIn() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.get("https://www.winwin.rs/customer/account/login/");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        driver.manage().window().maximize();
+        //closes push notification
+        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+        //fills in username and password fields
+        driver.findElement(By.cssSelector("#email")).sendKeys("bojanasav@yahoo.com");
+        driver.findElement(By.cssSelector("#pass")).sendKeys("12345Kako");
+        //clicks on submit button
+        driver.findElement(By.cssSelector("#send2")).click();
+        String location = driver.getCurrentUrl();
+
+        Assert.assertEquals("https://www.winwin.rs/customer/account/", location);
+        driver.quit();
 
     }
+
+
+
+//   Test case : Customer log in form using invalid credentials
+//   Test steps: 1. Navigate to www.winwin.rs/customer/account/login
+//               2. Filling in username field
+//               3. Filling in password field
+//               4. Clicks on submit button
+//               5. Navigates to user account page
+// Expected result:
+// User is not logged in  and error message is shown
+
+    @Test
+
+    public void LogInInvalid  () {
+
+    ChromeDriver driver = new ChromeDriver();
+    driver.get("https://www.winwin.rs/customer/account/login/");
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    driver.manage().window().maximize();
+    //closes push notification
+    driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+    //fills in username and password fields
+    driver.findElement(By.cssSelector("#email")).sendKeys("salala@yahoo.com");
+    driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
+    //clicks on submit button
+    driver.findElement(By.cssSelector("#send2")).click();
+        String location = driver.getCurrentUrl();
+
+        Assert.assertEquals("https://www.winwin.rs/customer/account/login/", location);
+    driver.quit();
 }
+}
+
+
+
+
 
 
 
