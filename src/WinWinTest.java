@@ -205,8 +205,8 @@ public class WinWinTest {
 
 //   Test case : Customer log in form using invalid credentials
 //   Test steps: 1. Navigate to www.winwin.rs/customer/account/login
-//               2. Filling in username field
-//               3. Filling in password field
+//               2. Enter random text in username field
+//               3. Enter  random text in password field
 //               4. Clicks on submit button
 //               5. Navigates to user account page
 // Expected result:
@@ -236,7 +236,7 @@ public class WinWinTest {
 //   Test case : Customer log in form using valid email address and invalid password
 //   Test steps: 1. Navigate to www.winwin.rs/customer/account/login
 //               2. Filling in username field
-//               3. Filling in password field
+//               3. Enter random text in password field
 //               4. Clicks on submit button
 //               5. Navigates to user account page
 // Expected result:
