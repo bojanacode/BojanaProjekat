@@ -18,7 +18,7 @@ public class WinWinTest {
     public String takeScreenshot;
     private Object LogInForm;
     public String LogInInvalid;
-
+    public String ValidEmailInvalidPassword;
 
     public WinWinTest() {
 
@@ -223,7 +223,7 @@ public class WinWinTest {
     //closes push notification
     driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
     //fills in username and password fields
-    driver.findElement(By.cssSelector("#email")).sendKeys("salala@yahoo.com");
+    driver.findElement(By.cssSelector("#email")).sendKeys("salala@gmail.com");
     driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
     //clicks on submit button
     driver.findElement(By.cssSelector("#send2")).click();
@@ -232,9 +232,37 @@ public class WinWinTest {
         Assert.assertEquals("https://www.winwin.rs/customer/account/login/", location);
     driver.quit();
 }
+
+//   Test case : Customer log in form using valid email address and invalid password
+//   Test steps: 1. Navigate to www.winwin.rs/customer/account/login
+//               2. Filling in username field
+//               3. Filling in password field
+//               4. Clicks on submit button
+//               5. Navigates to user account page
+// Expected result:
+// User is not logged in  and error message is shown
+
+    @Test
+
+    public void ValidEmailInvalidPassword  () {
+
+        ChromeDriver driver = new ChromeDriver();
+        driver.get("https://www.winwin.rs/customer/account/login/");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        driver.manage().window().maximize();
+        //closes push notification
+        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+        //fills in username and password fields
+        driver.findElement(By.cssSelector("#email")).sendKeys("bojanasav@yahoo.com");
+        driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
+        //clicks on submit button
+        driver.findElement(By.cssSelector("#send2")).click();
+        String location = driver.getCurrentUrl();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+        Assert.assertEquals("https://www.winwin.rs/customer/account/login/", location);
+        driver.quit();
+    }
 }
-
-
 
 
 
