@@ -20,9 +20,15 @@ public class WinWinTest {
     public String LogInInvalid;
     public String ValidEmailInvalidPassword;
 
+
     public WinWinTest() {
 
     }
+
+
+
+
+
 
 // Test case : Verify the products menu dropbox while user hover on
 // Test steps: 1. Navigate to www.winwin.rs
@@ -34,16 +40,19 @@ public class WinWinTest {
 
     @Test
     public void NotificationsAndHover() {
+            ChromeDriver driver = new ChromeDriver();
+            driver.get("https://www.winwin.rs/");
+            //navigates browser to website
+            driver.manage().window().maximize();
+           //maximize window
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+           //shuts down push notifications
+            String currentURL = driver.getCurrentUrl();
 
-        ChromeDriver driver = new ChromeDriver();
-        driver.get("https://www.winwin.rs/");
-        driver.manage().window().maximize();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
-        String currentURL = driver.getCurrentUrl();
-
-        driver.get("https://www.winwin.rs/");
-        driver.findElement(By.cssSelector("#menu > ul > li.menu-item.catalog.overlay-effect > dl > dt > h2")).click();
+            driver.get("https://www.winwin.rs/");
+           //finds page element and hovers mouse over it, clicks
+            driver.findElement(By.cssSelector("#menu > ul > li.menu-item.catalog.overlay-effect > dl > dt > h2")).click();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -63,6 +72,9 @@ public class WinWinTest {
     }
 
 
+
+
+
     // Test case : Verify correct products images are shown when selected category
 // Test steps: 1. Navigate to www.winwin.rs
 //             2. Select the drop down menu "Proizvodi"
@@ -76,13 +88,16 @@ public class WinWinTest {
 
     public void SelectBelaTehnika() {
         ChromeDriver driver = new ChromeDriver();
+      //navigates to url and shuts down push notifications
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectBelaTehnika);
         driver.manage().window().maximize();
+       //selects elements from dropdown menu
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.findElement(By.xpath("//*[@id=\"narrow-by-list2\"]/dd/ol/li[1]/a/span[1]")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        //after selection of item shows valid product image
         driver.findElement(By.xpath("//*[@id=\"narrow-by-list2\"]/dd/ol/li[1]/a/span")).click();
         String URL = driver.getCurrentUrl();
         if (URL.contains("masine-za-pranje-vesa")) {
@@ -113,9 +128,11 @@ public class WinWinTest {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.get(SelectItemInCart);
+       //navigates to url and maximizes window, shuts down notifications
         driver.manage().window().maximize();
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
         driver.findElement(By.cssSelector("#mm-0 > div > div.main-container.col2-left-layout > div > div.main > div.col-main > div.seg-reco-wrapper.seg-clear > div > div > div.owl-stage-outer > div > div:nth-child(9) > div > h3 > a")).click();
+        //adds selected item to cart
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.findElement(By.cssSelector("#product-addtocart-button")).click();
         String URL = driver.getCurrentUrl();
@@ -151,9 +168,11 @@ public class WinWinTest {
     public void SelectItemForm() {
         ChromeDriver driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        //navigates to url , maximizes window, shuts down notifications
         driver.get(SelectItemInCart);
         driver.manage().window().maximize();
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+        //selects categories from menu, adds item in to the shopping cart, proceeds to payment
         driver.findElement(By.cssSelector("#mm-0 > div > div.main-container.col2-left-layout > div > div.main > div.col-main > div.seg-reco-wrapper.seg-clear > div > div > div.owl-stage-outer > div > div:nth-child(9) > div > h3 > a")).click();
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.findElement(By.cssSelector("#product-addtocart-button")).click();
