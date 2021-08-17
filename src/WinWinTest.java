@@ -266,22 +266,37 @@ public class WinWinTest {
     public void ValidEmailInvalidPassword  () {
 
         ChromeDriver driver = new ChromeDriver();
-        driver.get("https://www.winwin.rs/customer/account/login/");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        driver.manage().window().maximize();
-        //closes push notification
-        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
-        //fills in username and password fields
-        driver.findElement(By.cssSelector("#email")).sendKeys("bojanasav@yahoo.com");
-        driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
-        //clicks on submit button
-        driver.findElement(By.cssSelector("#send2")).click();
-        String location = driver.getCurrentUrl();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
-        Assert.assertEquals("https://www.winwin.rs/customer/account/login/", location);
+        try {
+            driver.get("https://www.winwin.rs/customer/account/login/");
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            driver.manage().window().maximize();
+            //closes push notification
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/button[2]")).click();
+            //fills in username and password fields
+            driver.findElement(By.cssSelector("#email")).sendKeys("bojanasav@yahoo.com");
+            driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
+            //clicks on submit button
+            driver.findElement(By.cssSelector("#send2")).click();
+            String location = driver.getCurrentUrl();
+            wait = new WebDriverWait(driver, Duration.ofSeconds(4));
+            Assert.assertEquals("https://www.winwin.rs/customer/account/login/", location);
+             //takes screenshot if test fails
+              class SnimciEkrana {
+
+            }
+        } finally {
+
+        }
         driver.quit();
+
     }
-}
+
+
+
+    }
+
+
+
 
 
 
